@@ -92,4 +92,4 @@ This task focuses on analyzing business sales performance using Microsoft Excel 
 - Dashboard screenshots: `screenshots/`
 
 ### Dashboard Preview
-![Task 2 Business Sales Dashboard](screenshots/task_2_dashboard)
+![Task 2 Business Sales Dashboard](screenshots/task_2_dashboard.png)
