@@ -1,0 +1,56 @@
+POWER BI TASK 2 — DAX MEASURES
+================================
+
+Assumption: The data table is named 'Cleaned_Data' and includes columns [Total Sales], [Profit], [Quantity], [Order ID], [Customer ID], and [Order Date]. If your table or column names differ, replace them in the formulas.
+
+1) Total Sales
+Total Sales = SUM('Cleaned_Data'[Total Sales])
+
+2) Total Profit
+Total Profit = SUM('Cleaned_Data'[Profit])
+
+3) Profit Margin
+Profit Margin = DIVIDE([Total Profit], [Total Sales], 0)
+
+4) Total Quantity Sold
+Total Quantity Sold = SUM('Cleaned_Data'[Quantity])
+
+5) Unique Orders
+Unique Orders = DISTINCTCOUNT('Cleaned_Data'[Order ID])
+
+6) Unique Customers
+Unique Customers = DISTINCTCOUNT('Cleaned_Data'[Customer ID])
+
+7) Average Sales per Order
+Average Sales per Order = DIVIDE([Total Sales], [Unique Orders], 0)
+
+8) Sales Previous Year
+Sales Previous Year =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+9) Sales YoY %
+Sales YoY % =
+DIVIDE(
+    [Total Sales] - [Sales Previous Year],
+    [Sales Previous Year],
+    0
+)
+
+IMPORTANT DATE SETUP:
+For measures 8–9, create a proper calendar table and mark it as the date table:
+Date = CALENDAR(MIN('Cleaned_Data'[Order Date]), MAX('Cleaned_Data'[Order Date]))
+Then create a relationship from Date[Date] to Cleaned_Data[Order Date]. Use Date[Date] in time-based visuals. If you don't create this calendar table, do not use the year-over-year measures.
+
+RECOMMENDED VISUAL FIELD MAPPING:
+- KPI cards: [Total Sales], [Total Profit], [Profit Margin], [Total Quantity Sold]
+- Bar/column chart: Axis = Region; Values = [Total Sales]
+- Bar chart: Axis = Product Name; Values = [Total Sales]; apply Top N = 5 by [Total Sales]
+- Line chart: Axis = Date[Date] or a Month-Year field; Values = [Total Sales]
+- Slicers: Region, Category, Order Date
+
+FORMAT:
+- [Total Sales], [Total Profit], [Average Sales per Order]: Currency
+- [Profit Margin], [Sales YoY %]: Percentage
